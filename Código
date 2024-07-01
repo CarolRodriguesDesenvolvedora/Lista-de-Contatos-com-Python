@@ -1,0 +1,72 @@
+import json
+def exibir_menu():
+    print("1. Adicionar contato")
+    print("2. Remover contato")
+    print("3. Editar contato")
+    print("4. Listar contatos")
+    print("5. Sair")
+    return input("Escolha uma opção: ")
+
+def remover_contato():
+    nome_removido = input("Digite o nome do contato para remover: ")
+    for dicionario_contato in contatos:
+        if dicionario_contato["nome"].lower() == nome_removido.lower():
+            contatos.remove(dicionario_contato)
+
+def contato_editado (contatos):
+  nome_contato_editado = input("Digite o contato que você deseja editar? ")
+  for dicionario_contato in contatos:
+            if dicionario_contato["nome"].lower() == nome_contato_editado.lower():
+                nome_novo = input("Digite o novo nome: ")
+                telefone_novo = input("Digite o novo telefone: ")
+                email_novo = input("Digite o novo email: ")
+                dicionario_contato["nome"] = nome_novo
+                dicionario_contato["telefone"] = telefone_novo
+                dicionario_contato["email"] = email_novo
+
+def salvar():
+    print("Salvando")
+    with open("contato.txt", "w") as arquivo_contatos:
+        json.dump(contatos, arquivo_contatos, indent=4)
+
+
+def carregar():
+    dados = []
+    with open("contato.txt", "r") as arquivo_contatos:
+        dados = json.load(arquivo_contatos)
+    return dados
+
+contatos = []
+#contatos = carregar()
+
+while True:
+    escolha = exibir_menu()
+    if escolha == "1":
+        nome= input("Digite o nome do contato: ")
+        telefone= input("Digite o telefone do contato: ")
+        email = input("Digite o email do contato ")
+        dicionario_contato = {
+            "nome": nome,
+            "telefone": telefone,
+            "email": email
+        }
+        contatos.append(dicionario_contato)
+        salvar() 
+
+    elif escolha == "2":
+        remover = remover_contato()
+        salvar()
+        
+    elif escolha == "3":
+        edita_contato = contato_editado(contatos)
+        salvar()
+
+    elif escolha == "4":
+        print(contatos)
+
+    elif escolha == "5":
+        print("Saindo")
+        break
+    
+    else:
+        print("Opção inválida. Tente novamente.")
