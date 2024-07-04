@@ -1,4 +1,7 @@
 # Lista-de-Contatos-com-Python
+
+# Portuguese:
 Adicionar, remover, editar e visualizar lista de contatos
 
-A lista de contatos será salva em um arquivo txt chamado contatos.
+# English:
+Add, remove, edit, and view a contact list
